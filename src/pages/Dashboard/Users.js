@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const Users = () => {
 
-    const { data: users, isLoading, refetch } = useQuery("users", () => fetch("http://localhost:5000/user", {
+    const { data: users, isLoading, refetch } = useQuery("users", () => fetch("https://doctors-portal-server-side.onrender.com/user", {
         method: "GET",
         headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -16,7 +16,7 @@ const Users = () => {
     }
 
     const makeAdmin = (email) => {
-        fetch(`http://localhost:5000/user/admin/${email}`, {
+        fetch(`https://doctors-portal-server-side.onrender.com/user/admin/${email}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

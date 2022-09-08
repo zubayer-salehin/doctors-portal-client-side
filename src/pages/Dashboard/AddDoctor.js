@@ -8,7 +8,7 @@ const AddDoctor = () => {
 
     const { register, formState: { errors }, handleSubmit,reset } = useForm();
 
-    const { data: services, isLoading } = useQuery("service", () => fetch("http://localhost:5000/service").then(res => res.json()))
+    const { data: services, isLoading } = useQuery("service", () => fetch("https://doctors-portal-server-side.onrender.com/service").then(res => res.json()))
 
     const imageStorageKey = "bbb41293b29baeed6436287ccb9bbf00"
 
@@ -33,7 +33,7 @@ const AddDoctor = () => {
                     }
 
                     // Post Doctor Information
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://doctors-portal-server-side.onrender.com/doctor', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

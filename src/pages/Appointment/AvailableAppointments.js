@@ -9,7 +9,7 @@ const AvailableAppointments = ({ date }) => {
 
     const [treatment, setTreatment] = useState(null);
     const formatted = format(date, "PP")
-    const { data: services, isLoading,refetch } = useQuery(["available",formatted], () => fetch(`http://localhost:5000/available?date=${formatted}`)
+    const { data: services, isLoading,refetch } = useQuery(["available",formatted], () => fetch(`https://doctors-portal-server-side.onrender.com/available?date=${formatted}`)
         .then(res => res.json())
     );
 

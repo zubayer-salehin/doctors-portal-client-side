@@ -13,7 +13,7 @@ const CheckOutForm = ({ appointment }) => {
     const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/create-payment-intent`, {
+        fetch(`https://doctors-portal-server-side.onrender.com/create-payment-intent`, {
             method: 'POST',
             headers: {
                 "content-type": "application/json",
@@ -74,7 +74,7 @@ const CheckOutForm = ({ appointment }) => {
                 transactionId:paymentIntent.id
             }
 
-            fetch(`http://localhost:5000/booking/${_id}`, {
+            fetch(`https://doctors-portal-server-side.onrender.com/booking/${_id}`, {
                 method: "PATCH",
                 headers: {
                     "content-type": "application/json",
