@@ -4,6 +4,8 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useToken from '../Hooks/useToken';
+import google from "../../assets/Icon/Group 573.png"
+
 
 const SingUp = () => {
 
@@ -37,9 +39,9 @@ const SingUp = () => {
 
     return (
         <div className="hero">
-            <div className="hero-content p-0">
+            <div className="hero-content pt-8 sm:p-3">
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <div className="card-body py-4">
+                    <div className="card-body py-5">
                         <h4 className='text-3xl text-center font-bold'>Sing Up</h4>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-control">
@@ -115,7 +117,7 @@ const SingUp = () => {
                             <p className='label-text-alt text-center mt-3'>Already have an account? <Link to="/login" className="label-text-alt link link-hover text-secondary">Please Login</Link></p>
                         </form>
                         <div className="divider my-2">OR</div>
-                        <button onClick={() => signInWithGoogle()} className='btn btn-outline'>Continue With Google</button>
+                        <button onClick={() => signInWithGoogle()} className="border border-gray-500 py-2 font-medium rounded"> <img className='w-6 mr-1 inline' src={google} alt="" /> Continue With Google</button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -20,13 +21,27 @@ import RequireAuth from './pages/Login/RequireAuth';
 import SingUp from './pages/Login/SingUp';
 import Reviews from './pages/Reviews/Reviews';
 import Header from './pages/Shared/Header';
+import Loading from './pages/Shared/Loading/Loading';
+import ScrollToTop from "./ScrollToTop"
 
 function App() {
-  return (
-    <div className='max-w-7xl mx-auto px-10'>
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, [1000])
+  }, [])
+
+
+  return (loading ? <Loading loadingStatus="true"></Loading> :
+    <div>
+      <ScrollToTop></ScrollToTop>
       <Header></Header>
       <Routes>
-        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/' element={<Navigate to="/home"></Navigate>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/appointment' element={<RequireAuth><Appointment></Appointment></RequireAuth>}></Route>
         <Route path='/dashboard' element={
@@ -41,10 +56,10 @@ function App() {
           <Route path='addDoctor' element={<RequireAdmin><AddDoctor /></RequireAdmin>}></Route>
           <Route path='manageDoctor' element={<RequireAdmin><ManageDoctor /></RequireAdmin>}></Route>
         </Route>
-        <Route path='/about' element={<RequireAuth><About></About></RequireAuth>}></Route>
+        <Route path='/about-us' element={<RequireAuth><About></About></RequireAuth>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/reviews' element={<Reviews></Reviews>}></Route>
-        <Route path='/contactUs' element={<ContactUs></ContactUs>}></Route>
+        <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/singUp' element={<SingUp></SingUp>}></Route>
       </Routes>
       <ToastContainer></ToastContainer>

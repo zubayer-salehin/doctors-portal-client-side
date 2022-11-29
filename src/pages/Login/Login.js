@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import auth from "../../firebase.init"
 import { useSignInWithEmailAndPassword, useSignInWithGoogle, useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useToken from '../Hooks/useToken';
+import google from "../../assets/Icon/Group 573.png"
+import Loading from '../Shared/Loading/Loading';
 
 
 const Login = () => {
 
-    const { register, getValues,formState: { errors }, handleSubmit } = useForm();
+    const { register, getValues, formState: { errors }, handleSubmit } = useForm();
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
@@ -16,22 +18,20 @@ const Login = () => {
 
     let errorElement;
     const navigate = useNavigate();
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
-    
+
 
     useEffect(() => {
         if (token) {
-            navigate(from, { replace: true });
+            navigate("/home");
         }
-    }, [from,navigate,token])
-
-    if (googleError || error) {
-        errorElement = <p className='w-60 text-red-500'>{error.message || googleError.message}</p>
-    }
+    }, [navigate, token])
 
     if (googleLoading || loading) {
-        return <button className="btn loading">loading</button>
+        return <Loading loadingStatus="true"></Loading>
+    }
+
+    if (googleError || error) {
+        errorElement = <p className='w-60 text-red-500'>{error?.message || googleError?.message}</p>
     }
 
     const onSubmit = data => {
@@ -40,7 +40,7 @@ const Login = () => {
 
     return (
         <div className="hero">
-            <div className="hero-content p-0 sm:p-4">
+            <div className="hero-content p-8 sm:p-5">
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body py-5">
                         <h4 className='text-3xl text-center font-bold'>Login</h4>
@@ -100,7 +100,7 @@ const Login = () => {
                             <p className='label-text-alt text-center mt-3'>New to Doctors Portal? <Link to="/singUp" className="label-text-alt link link-hover text-secondary">Create new account</Link></p>
                         </form>
                         <div className="divider my-2">OR</div>
-                        <button onClick={() => signInWithGoogle()} className='btn btn-outline'>Continue With Google</button>
+                        <button onClick={() => signInWithGoogle()} className="border border-gray-500 py-2 font-medium rounded"> <img className='w-6 mr-1 inline' src={google} alt="" /> Continue With Google</button>
                     </div>
                 </div>
             </div>

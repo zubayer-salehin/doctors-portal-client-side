@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading/Loading';
 import Booking from './Booking';
 import BookingModal from './BookingModal';
 
@@ -16,12 +17,12 @@ const AvailableAppointments = ({ date }) => {
     console.log(treatment);
 
     if (isLoading) {
-        return <button className="btn loading">loading</button>
+        return <Loading loadingStatus="true"></Loading>
     }
 
     return (
-        <div className='mb-16'>
-            <h4 className='text-secondary text-lg text-center font-bold my-16'>Avaiable Appointments on {format(date, "PP")}.</h4>
+        <div className='customContainer my-20'>
+            <h4 className='text-secondary text-xl text-center font-bold mb-16'>Avaiable Appointments on {format(date, "PP")}.</h4>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10'>
                 {services?.map(service => <Booking key={service._id} setTreatment={setTreatment} service={service}></Booking>)}
             </div>

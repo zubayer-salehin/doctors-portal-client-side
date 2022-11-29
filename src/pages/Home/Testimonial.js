@@ -10,7 +10,7 @@ const Testimonial = ({ person }) => {
                         <img className='w-16' src={person.image} alt="" />
                     </div>
                     <div className='ml-4'>
-                        <h5 className='text-xl text-bold'>{person.name}</h5>
+                        <h5 className='text-xl text-bold '>{person.name}</h5>
                         <p>{person.address}</p>
                     </div>
                 </div>

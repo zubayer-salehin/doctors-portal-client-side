@@ -7,13 +7,15 @@ import phone from "../../assets/icons/phone.svg"
 const Info = () => {
 
     const details = [
-        {name:"Opening Hour",description:"Every Day 10AM-4PM",image:`${clock}`,bgColor:"bg-secondary"},
-        {name:"Visit our location",description:"Brooklyn, NY 10036, United States",image:`${marker}`,bgColor:"bg-accent"},
-        {name:"Contact us now",description:"+000 123 456789",image:`${phone}`,bgColor:"bg-secondary"}
+        { name: "Opening Hour", description: "Every Day 10AM-4PM", image: `${clock}`, bgColor: "bg-secondary" },
+        { name: "Visit our location", description: "Brooklyn, United States", image: `${marker}`, bgColor: "bg-accent" },
+        { name: "Contact us now", description: "+000 123 456789", image: `${phone}`, bgColor: "bg-secondary" }
     ]
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10'>
-            {details.map(detail => <InfoCard key={Math.random()*1000} detail={detail}></InfoCard>)}
+        <div className='customContainer'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-28 px-0 sm:px-4'>
+                {details.map(detail => <InfoCard key={Math.random() * 1000} detail={detail}></InfoCard>)}
+            </div>
         </div>
     );
 };
