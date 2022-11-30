@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import useToken from '../Hooks/useToken';
 import google from "../../assets/Icon/Group 573.png"
 import { useState } from 'react';
+import Loading from '../Shared/Loading/Loading';
 
 
 const SingUp = () => {
@@ -48,7 +49,7 @@ const SingUp = () => {
     }
 
     if (googleLoading || loading || updating) {
-        return <button className="btn loading">loading</button>
+        return <Loading loadingStatus="true"></Loading>
     }
 
     const onSubmit = async (data) => {
