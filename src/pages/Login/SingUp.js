@@ -5,10 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useToken from '../Hooks/useToken';
 import google from "../../assets/Icon/Group 573.png"
+import { useState } from 'react';
 
 
 const SingUp = () => {
 
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [createUserWithEmailAndPassword, user, loading, error,] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
@@ -20,8 +23,24 @@ const SingUp = () => {
     useEffect(() => {
         if (token) {
             navigate("/home");
+            if (userName) {
+                fetch(`https://doctors-portal-server-side.onrender.com/userUpdate?email=${userEmail}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "authorization": `Bearer ${localStorage.getItem("accessToken")}`
+                    },
+                    body: JSON.stringify({ name: userName })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+
+                        }
+                    })
+            }
         }
-    },[token,navigate])
+    }, [token, navigate, userName, userEmail])
 
 
     if (googleError || error || updateError) {
@@ -33,8 +52,13 @@ const SingUp = () => {
     }
 
     const onSubmit = async (data) => {
-        await createUserWithEmailAndPassword(data.email, data.password)
-        await updateProfile({ displayName: data.name })
+        const name = data.name;
+        setUserName(name);
+        const email = data.email;
+        setUserEmail(email);
+        const password = data.password;
+        await createUserWithEmailAndPassword(email, password)
+        await updateProfile({ displayName: name })
     }
 
     return (
